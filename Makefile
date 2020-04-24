@@ -2,12 +2,12 @@ INCLUDE_DIRS	:= /home/caleb/CSC310/2assign
 CC				:= g++
 CFLAGS			:= -I$(INCLUDE_DIRS)
 
-OBJS			:= customError.o binaryFile.o
+OBJS			:= customErrorClass.o binaryFile.o
 
-excRBTreeDel: main.cpp $(OBJS)
+excBinaryFile: main.cpp $(OBJS)
 	$(CC) -o $@ $^
 
-customError.o: customError.cpp customError.h
+customErrorClass.o: customErrorClass.cpp customErrorClass.h
 	$(CC) -c -o $@ $<
 
 binaryFile.o: binaryFile.cpp binaryFile.h
@@ -16,4 +16,4 @@ binaryFile.o: binaryFile.cpp binaryFile.h
 .PHONY: clean
 
 clean:
-	rm $(OBJS) excBinaryFile
+	rm $(OBJS) excBinaryFile output.txt
