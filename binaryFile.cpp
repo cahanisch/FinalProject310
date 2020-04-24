@@ -3,45 +3,54 @@
 
 binaryFile::binaryFile()
 {
-
+    this->records = 0;
 }
 binaryFile::~binaryFile()
 {
 
 }
-bool binaryFile::search()
-{
+// bool binaryFile::search()
+// {
 
-}
-void binaryFile::insert()
+// }
+void binaryFile::insert(string fileName)
 {
-    
+    //try
+    //{
+        this->p_Insert(fileName);   
+    //}
+    /*
+    catch(MyException &exc)
+    {
+        cerr << exc.what() << endl;
+    }
+    */
 }
-EMP binaryFile::retrieve()
-{
+// EMP binaryFile::retrieve()
+// {
 
-}
-void binaryFile::sort()
-{
+// }
+// void binaryFile::sort()
+// {
 
-}
-bool binaryFile::update()
-{
+// }
+// bool binaryFile::update()
+// {
 
-}
-int binaryFile::p_Search()
-{
+// }
+// int binaryFile::p_Search()
+// {
 
-}
-void binaryFile::p_Insert()
+// }
+void binaryFile::p_Insert(string inputFile)
 {
     ifstream inputData;
-    string inputFile = "smallOutput.txt";
+    fstream outputData;
     string inputLine;
     int numLines = 0;
     EMP* dataArray;
     int commaArray[3] = {0};
-    int i = 0;
+    int recordCount = this->p_GetRecords();
 
     inputData.open(inputFile);
 
@@ -61,24 +70,43 @@ void binaryFile::p_Insert()
             commaArray[1] = inputLine.find(",", commaArray[0] + 1);
             commaArray[2] = inputLine.find(",", commaArray[1] + 1);
 
-            dataArray[i].department = atoi(inputLine.substr(0, commaArray[0]).c_str);
-            dataArray[i].employeeNum = atoi(inputLine.substr(commaArray[0], commaArray[1]).c_str);
-            dataArray[i].employeeName = atoi(inputLine.substr(commaArray[1], commaArray[2]).c_str);
+            dataArray[recordCount].department = atoi(inputLine.substr(0, commaArray[0]).c_str());
+            dataArray[recordCount].employeeNum = atoi(inputLine.substr(commaArray[0] + 1, commaArray[1]).c_str());
+            dataArray[recordCount].employeeName = inputLine.substr(commaArray[1] + 1, commaArray[2]).c_str();
 
-            i++;
+            recordCount++;
         }
         inputData.close();
     }
-}
-EMP binaryFile::p_Retrieve()
-{
+    outputData.open("output.txt", ios::out|ios::binary);
 
-}
-void binaryFile::p_Sort()
-{
+    if(outputData.is_open())
+    {
+        outputData.write((char*)dataArray, sizeof(EMP)*numLines);
+        outputData.close();
+    }
 
-}
-bool binaryFile::p_Update()
-{
+    this->p_SetRecords(recordCount);
 
+    delete[] dataArray;
+}
+// EMP binaryFile::p_Retrieve()
+// {
+
+// }
+// void binaryFile::p_Sort()
+// {
+
+// }
+// bool binaryFile::p_Update()
+// {
+
+// }
+int binaryFile::p_GetRecords()
+{
+    return this->records;
+}
+void binaryFile::p_SetRecords(int recordNum)
+{
+    this->records = recordNum;
 }

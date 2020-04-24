@@ -5,6 +5,8 @@
 #include <string>
 #include <fstream>
 
+using namespace std;
+
 // typedef enum DEPARTMENT
 // {
 //     0,
@@ -21,8 +23,6 @@ typedef struct employee
     string employeeName;
 }EMP;
 
-using namespace std;
-
 //*********************START CLASS binaryFile DEFINITION*********************
 class binaryFile
 {
@@ -31,7 +31,7 @@ class binaryFile
         binaryFile();
         ~binaryFile();
         bool search();
-        void insert();
+        void insert(string);
         EMP retrieve();
         void sort();
         bool update();
@@ -39,12 +39,15 @@ class binaryFile
     /**************************** PRIVATE: Variables ****************************/
         fstream file;
         int records;
+        EMP* dataArray;
     /**************************** PRIVATE: Methods ****************************/
         int p_Search();
-        void p_Insert();
+        void p_Insert(string);
         EMP p_Retrieve();
         void p_Sort();
         bool p_Update();
+        void p_SetRecords(int);
+        int p_GetRecords();
 };
 //*********************END CLASS binaryFile DEFINITION*********************
 
