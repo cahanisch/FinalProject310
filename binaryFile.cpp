@@ -1,9 +1,10 @@
 #include "binaryFile.h"
 //TODO: add libary for custom exception handling
 
-binaryFile::binaryFile()
+binaryFile::binaryFile(string outFile)
 {
     this->records = 0;
+    this->outputString = outFile;
 }
 binaryFile::~binaryFile()
 {
@@ -51,6 +52,7 @@ void binaryFile::p_Insert(string inputFile)
     EMP* dataArray;
     int commaArray[3] = {0};
     int recordCount = this->p_GetRecords();
+    string outFile = this->p_GetOutputString();
 
     inputData.open(inputFile);
 
@@ -78,7 +80,7 @@ void binaryFile::p_Insert(string inputFile)
         }
         inputData.close();
     }
-    outputData.open("output.txt", ios::out|ios::binary);
+    outputData.open(outFile, ios::out|ios::binary);
 
     if(outputData.is_open())
     {
@@ -109,4 +111,12 @@ int binaryFile::p_GetRecords()
 void binaryFile::p_SetRecords(int recordNum)
 {
     this->records = recordNum;
+}
+string binaryFile::p_GetOutputString()
+{
+    return this->outputString;
+}
+void binaryFile::p_SetOutputString(string outFile)
+{
+    this->outputString = outFile;
 }

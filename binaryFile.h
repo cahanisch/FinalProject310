@@ -47,6 +47,8 @@ class binaryFile
         bool p_Update();
         void p_SetRecords(int);
         int p_GetRecords();
+        string p_GetOutputString();
+        void p_SetOutputString(string);
 };
 //*********************END CLASS binaryFile DEFINITION*********************
 

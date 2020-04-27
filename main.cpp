@@ -2,7 +2,7 @@
 
 int main(int argc, char** argv)
 {
-    binaryFile myFile;
+    binaryFile myFile("output.txt");
 
     myFile.insert("smallOutput.txt");
 
