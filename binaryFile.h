@@ -28,7 +28,7 @@ class binaryFile
 {
     public:
     /**************************** PUBLIC: Methods ****************************/
-        binaryFile();
+        binaryFile(string);
         ~binaryFile();
         bool search();
         void insert(string);
@@ -37,9 +37,8 @@ class binaryFile
         bool update();
     private:
     /**************************** PRIVATE: Variables ****************************/
-        fstream file;
         int records;
-        EMP* dataArray;
+        string outputString;
     /**************************** PRIVATE: Methods ****************************/
         int p_Search();
         void p_Insert(string);
