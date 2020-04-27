@@ -136,7 +136,7 @@ void binaryFile::p_Sort()
 
         if(i!=0)
         {
-            fileIndexes[i].start = fileIndexes[i-1] + fileIndexes[i-1].size;
+            fileIndexes[i].start = fileIndexes[i-1].start + fileIndexes[i-1].size;
         }
 
     }
@@ -168,7 +168,6 @@ void binaryFile::p_Sort()
     }
 
     //write the bins back to the file
-    fileIndexes[0].start * sizeof(EMP)
     //fp.open(this->outputString, ios::out|ios::binary);
     fp.open("output.txt", ios::out|ios::binary); //to compile on tylers compiler
     if(fp.is_open())
