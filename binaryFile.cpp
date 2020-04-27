@@ -10,6 +10,7 @@ binaryFile::binaryFile(string outFile)
     for(int i = 0; i < 5; i++)
     {
         fileIndexes[i].size = 0;
+        fileIndexes[i].start = 0;
     }
 }
 binaryFile::~binaryFile()
@@ -132,7 +133,15 @@ void binaryFile::p_Sort()
     for(i = 0; i < 5; i++)
     {
         separatedDepartments[i] = new EMP [fileIndexes[i].size];
+
+        if(i!=0)
+        {
+            fileIndexes[i].start = fileIndexes[i-1] + fileIndexes[i-1].size;
+        }
+
     }
+
+
 
     //read record from file and put in respective bin
     fstream fp;
@@ -159,8 +168,7 @@ void binaryFile::p_Sort()
     }
 
     //write the bins back to the file
-
-
+    fileIndexes[0].start * sizeof(EMP)
     //fp.open(this->outputString, ios::out|ios::binary);
     fp.open("output.txt", ios::out|ios::binary); //to compile on tylers compiler
     if(fp.is_open())

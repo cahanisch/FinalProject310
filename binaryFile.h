@@ -28,7 +28,7 @@ typedef struct employee
 
 typedef struct departmentIndex
 {
-    //index
+    int start;
     int size;
 }DepIndex;
 
