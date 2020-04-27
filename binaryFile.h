@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <stdlib.h>
+#include <string.h>
 
 using namespace std;
 
@@ -20,8 +22,17 @@ typedef struct employee
 {
     int department;
     int employeeNum;
-    string employeeName;
+    char employeeName[30];
 }EMP;
+
+
+typedef struct departmentIndex
+{
+    //index
+    int size;
+}DepIndex;
+
+
 
 //*********************START CLASS binaryFile DEFINITION*********************
 class binaryFile
@@ -35,10 +46,12 @@ class binaryFile
         EMP retrieve();
         void sort();
         bool update();
+        void head(int);
     private:
     /**************************** PRIVATE: Variables ****************************/
         int records;
         string outputString;
+        DepIndex fileIndexes[5];
     /**************************** PRIVATE: Methods ****************************/
         int p_Search();
         void p_Insert(string);
@@ -49,6 +62,7 @@ class binaryFile
         int p_GetRecords();
         string p_GetOutputString();
         void p_SetOutputString(string);
+        void p_head(int);
 };
 //*********************END CLASS binaryFile DEFINITION*********************
 
