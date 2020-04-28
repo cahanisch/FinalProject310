@@ -8,5 +8,17 @@ int main(int argc, char** argv)
     myFile.sort();
     myFile.head(20);
 
+    bool checkSearch;
+    checkSearch = myFile.search(0,45731);
+    if (checkSearch == true)
+        cout << "Search works" << endl;
+    else
+        cout << "Search didnt' work :( " << endl;
+    
+    EMP* checkRetrieve;
+    checkRetrieve = myFile.retrieve(0,45731);
+    cout << "Retrieved Name: " << checkRetrieve->employeeName << endl;
+    cout << "Department: " << checkRetrieve->department << " Employee Number: " << checkRetrieve->employeeNum << endl;
+
     return 0;
 }

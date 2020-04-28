@@ -17,10 +17,16 @@ binaryFile::~binaryFile()
 {
 
 }
-// bool binaryFile::search()
-// {
+bool binaryFile::search(int dep, int empNum)
+{
+    int found = this->p_Search(dep, empNum);
 
-// }
+    // There's probably an exception handling way to deal with this chunk. if the value comes back as -1 it was not found
+    if (found == -1)
+        return false;
+    else
+        return true;
+}
 void binaryFile::insert(string fileName)
 {
     //try
@@ -34,10 +40,17 @@ void binaryFile::insert(string fileName)
     }
     */
 }
-// EMP binaryFile::retrieve()
-// {
-
-// }
+EMP* binaryFile::retrieve(int dep, int empNum)
+{
+    bool exists = this->search(dep, empNum);
+    EMP* employeeToFind = NULL;
+    if (exists)
+    {
+        employeeToFind = this->p_Retrieve(dep, empNum);
+	}
+//    else
+        return employeeToFind;
+}
 void binaryFile::sort()
 {
     this->p_Sort();
@@ -52,10 +65,38 @@ void binaryFile::head(int n)
     //make sure n is less than or equal to number of records
     this->p_head(n);
 }
-// int binaryFile::p_Search()
-// {
+int binaryFile::p_Search(int dep, int empNum)
+{
+    int offset = -1;
+    fstream fp;
+    int i;
+    int i_dep, i_empNum;
+    fp.open("output.txt", ios::in|ios::binary); 
+    EMP buff;
 
-// }
+    if(fp.is_open())
+    {    
+        for(i = 0; i < this->records; i++)
+        {
+            // read in a sizeof EMP, grab that record's department number and employee number, then compare it.
+            fp.read((char*)&buff, sizeof(EMP));
+            i_dep = buff.department;
+            i_empNum = buff.employeeNum;
+            // if the department and number are a match, we know it was found and we know its offset
+            if (i_dep == dep && i_empNum == empNum)
+            {
+                // i = the offset to the record
+                offset = i;
+                // cause a loop termination, we're at the end of what we need
+                i = this->records;
+			}
+        }
+
+        fp.close();
+    }
+
+    return offset;
+}
 void binaryFile::p_Insert(string inputFile)
 {
     ifstream inputData;
@@ -115,10 +156,41 @@ void binaryFile::p_Insert(string inputFile)
 
 
 }   
-// EMP binaryFile::p_Retrieve()
-// {
+EMP* binaryFile::p_Retrieve(int dep, int empNum)
+{
+    // Repeated code from Search function
+    fstream fp;
+    int i;
+    int i_dep, i_empNum;
+    int counter = p_GetRecords();
+    fp.open("output.txt", ios::in|ios::binary); 
+    EMP buff;
+    EMP* employeeReturn = new EMP;
 
-// }
+    if(fp.is_open())
+    {    
+        for(i = 0; i < counter; i++)
+        {
+            // read in a sizeof EMP, grab that record's department number and employee number, then compare it.
+            fp.read((char*)&buff, sizeof(EMP));
+            i_dep = buff.department;
+            i_empNum = buff.employeeNum;
+            // if the department and number are a match, we know it was found and we know its offset
+            if (i_dep == dep && i_empNum == empNum)
+            {
+                // Fill out the information to send back
+                employeeReturn->department = buff.department;
+                employeeReturn->employeeNum = buff.employeeNum;
+                strncpy(employeeReturn->employeeName, buff.employeeName, 30);
+			}
+        }
+
+        fp.close();
+    }
+
+    return employeeReturn;
+
+}
 
 //still to do: 
 //create the indexes!
@@ -130,6 +202,7 @@ void binaryFile::p_Sort()
     EMP *separatedDepartments[5];
     int departmentSizeCounter[5] = {0};
     int i, dep, k;
+    int counter = this->p_GetRecords();
     for(i = 0; i < 5; i++)
     {
         separatedDepartments[i] = new EMP [fileIndexes[i].size];
@@ -152,7 +225,7 @@ void binaryFile::p_Sort()
 
     if(fp.is_open())
     {    
-        for(i = 0; i < this->records; i++)
+        for(i = 0; i < counter; i++)
         {
 
             fp.read((char*)&buff, sizeof(EMP));

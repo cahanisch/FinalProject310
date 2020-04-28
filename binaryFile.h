@@ -41,9 +41,9 @@ class binaryFile
     /**************************** PUBLIC: Methods ****************************/
         binaryFile(string);
         ~binaryFile();
-        bool search();
+        bool search(int, int);
         void insert(string);
-        EMP retrieve();
+        EMP* retrieve(int, int);
         void sort();
         bool update();
         void head(int);
@@ -53,9 +53,9 @@ class binaryFile
         string outputString;
         DepIndex fileIndexes[5];
     /**************************** PRIVATE: Methods ****************************/
-        int p_Search();
+        int p_Search(int, int);
         void p_Insert(string);
-        EMP p_Retrieve();
+        EMP* p_Retrieve(int, int);
         void p_Sort();
         bool p_Update();
         void p_SetRecords(int);
