@@ -55,10 +55,32 @@ void binaryFile::sort()
 {
     this->p_Sort();
 }
-// bool binaryFile::update()
-// {
 
-// }
+bool binaryFile::update(int dep, int empNum, char newName[])
+{
+	bool exists = this->search(dep, empNum);
+    EMP* employeeToFind = NULL;
+    char temp[30];
+    if (exists)
+    {
+        employeeToFind = this->p_Retrieve(dep, empNum);
+		if (employeeToFind == NULL)
+			return false;
+		else
+        {
+		    strncpy(temp, employeeToFind->employeeName, 30);
+		    strncpy(employeeToFind->employeeName, newName, 30);
+			if (employeeToFind->employeeName == temp)
+				return false;
+			else	
+				return true;
+		
+		}
+	
+	}
+    else
+       return false;
+}
 
 void binaryFile::head(int n)
 {
@@ -259,11 +281,43 @@ void binaryFile::p_Sort()
 
     
 }
-// bool binaryFile::p_Update()
-// {
+/*
+bool binaryFile::p_Update(int dep, int empNum, char newName[])
+{
+	fstream fp;
+    int i;
+    int i_dep, i_empNum;
+    int counter = p_GetRecords();
+    fp.open("output.txt", ios::in|ios::binary); 
+    EMP buff;
+    EMP* employeeReturn = new EMP;
 
-// }
 
+	if(fp.is_open())
+    {    
+        for(i = 0; i < counter; i++)
+        {
+            
+            fp.read((char*)&buff, sizeof(EMP));
+            i_dep = buff.department;
+            i_empNum = buff.employeeNum;
+            
+            if (i_dep == dep && i_empNum == empNum)
+            {
+            
+                employeeReturn->department = buff.department;
+                employeeReturn->employeeNum = buff.employeeNum;
+                strncpy(employeeReturn->employeeName, buff.employeeName, 30);
+			}
+        }
+
+        fp.close();
+    }
+
+    return employeeReturn;
+
+}
+*/
 
 //prints out first n items
 void binaryFile::p_head(int n)
