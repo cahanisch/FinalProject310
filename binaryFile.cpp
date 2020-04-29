@@ -61,25 +61,41 @@ bool binaryFile::update(int dep, int empNum, char newName[])
 	bool exists = this->search(dep, empNum);
     EMP* employeeToFind = NULL;
     char temp[30];
+    fstream fp;
+    fp.open("output.txt", ios::in|ios::binary);
     if (exists)
     {
         employeeToFind = this->p_Retrieve(dep, empNum);
 		if (employeeToFind == NULL)
+        {
+            fp.close();
 			return false;
+        }
 		else
         {
 		    strncpy(temp, employeeToFind->employeeName, 30);
 		    strncpy(employeeToFind->employeeName, newName, 30);
+            //TODO write back out to file
+            cout << "Test: " << employeeToFind->employeeName << endl;
 			if (employeeToFind->employeeName == temp)
+            {
+                fp.close();
 				return false;
-			else	
+            }
+			else
+            {
+                fp.close();	
 				return true;
+            }
 		
 		}
 	
 	}
     else
-       return false;
+    {
+        fp.close();
+        return false;
+    }
 }
 
 void binaryFile::head(int n)
@@ -216,7 +232,6 @@ EMP* binaryFile::p_Retrieve(int dep, int empNum)
 
 //still to do: 
 //create the indexes!
-//(maybe) add a sort 
 void binaryFile::p_Sort()
 {
 
@@ -235,8 +250,6 @@ void binaryFile::p_Sort()
         }
 
     }
-
-
 
     //read record from file and put in respective bin
     fstream fp;
