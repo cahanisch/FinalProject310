@@ -16,7 +16,8 @@ binaryFile::binaryFile(string outFile)
 }
 binaryFile::~binaryFile()
 {
-
+    this->p_SetRecords(0);
+    this->p_SetOutputString("");
 }
 bool binaryFile::search(int dep, int empNum)
 {
@@ -55,7 +56,7 @@ void binaryFile::sort()
     this->p_Sort();
 }
 
-bool binaryFile::update(int dep, int empNum, char newName[])
+bool binaryFile::update(int dep, int empNum, string newName)
 {
 	return this->p_Update(dep, empNum, newName);
 }
@@ -69,8 +70,6 @@ void binaryFile::head(int n)
     {
         std::cerr << exc.what() << '\n';
     }
-    
-    this->p_head(n);
 }
 int binaryFile::p_Search(int dep, int empNum)
 {
@@ -247,7 +246,6 @@ void binaryFile::p_Sort()
     }
 
     //write the bins back to the file
-    //fp.open(this->outputString, ios::out|ios::binary);
     fp.open(outFile, ios::out|ios::binary); //to compile on tylers compiler
     if(fp.is_open())
     {

@@ -9,15 +9,6 @@
 
 using namespace std;
 
-// typedef enum DEPARTMENT
-// {
-//     0,
-//     1,
-//     2,
-//     3,
-//     4    
-// }DEP;
-
 typedef struct employee
 {
     int department;
@@ -25,13 +16,11 @@ typedef struct employee
     char employeeName[30];
 }EMP;
 
-
 typedef struct departmentIndex
 {
     int start;
     int size;
 }DepIndex;
-
 
 
 //*********************START CLASS binaryFile DEFINITION*********************
@@ -45,7 +34,7 @@ class binaryFile
         void insert(string);
         EMP* retrieve(int, int);
         void sort();
-        bool update(int, int, char[]);
+        bool update(int, int, string);
         void head(int);
         
     private:
