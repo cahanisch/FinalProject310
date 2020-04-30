@@ -47,7 +47,7 @@ class binaryFile
         void sort();
         bool update(int, int, char[]);
         void head(int);
-        bool update(int, int, char[]);
+        
     private:
     /**************************** PRIVATE: Variables ****************************/
         int records;
