@@ -23,7 +23,9 @@ bool binaryFile::search(int dep, int empNum)
 
     // There's probably an exception handling way to deal with this chunk. if the value comes back as -1 it was not found
     if (found == -1)
+    {
         return false;
+    }
     else
         return true;
 }
@@ -58,12 +60,12 @@ void binaryFile::sort()
 
 bool binaryFile::update(int dep, int empNum, char newName[])
 {
-	bool exists = this->search(dep, empNum);
+	int offset = this->p_Search(dep, empNum);
     EMP* employeeToFind = NULL;
     char temp[30];
     fstream fp;
-    fp.open("output.txt", ios::in|ios::binary);
-    if (exists)
+    fp.open("output.txt", ios::in | ios::out |ios::binary);
+    if (offset != -1)
     {
         employeeToFind = this->p_Retrieve(dep, empNum);
 		if (employeeToFind == NULL)
@@ -73,18 +75,25 @@ bool binaryFile::update(int dep, int empNum, char newName[])
         }
 		else
         {
+
+
 		    strncpy(temp, employeeToFind->employeeName, 30);
 		    strncpy(employeeToFind->employeeName, newName, 30);
-            //TODO write back out to file
-            cout << "Test: " << employeeToFind->employeeName << endl;
-			if (employeeToFind->employeeName == temp)
+            //TODO write back out to file			
+
+            cout << offset << endl;
+            fp.seekp(sizeof(EMP)*offset);
+            fp.write((char*)employeeToFind, sizeof(EMP));
+
+            fp.close();
+            if (employeeToFind->employeeName == temp)
             {
-                fp.close();
+                
 				return false;
             }
 			else
             {
-                fp.close();	
+                
 				return true;
             }
 		
@@ -98,15 +107,7 @@ bool binaryFile::update(int dep, int empNum, char newName[])
     }
 
     
-    
-    fp.open("output.txt", ios::out|ios::binary); 
-    fp.seekp(sizeof(EMP)*p_Search(dep, empNum));
-	if(fp.is_open())
-    {
-        fp.write((char*)employeeToFind, sizeof(EMP));
-        fp.close();
-    
-	}
+
     
 }
 
