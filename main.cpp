@@ -15,6 +15,8 @@ int main(int argc, char** argv)
     else
         cout << "Search didnt' work :( " << endl;
     
+    myFile.update(0, 45731, "ME!");
+
     EMP* checkRetrieve;
     checkRetrieve = myFile.retrieve(0,45731);
     cout << "Retrieved Name: " << checkRetrieve->employeeName << endl;

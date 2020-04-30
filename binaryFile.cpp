@@ -55,10 +55,59 @@ void binaryFile::sort()
 {
     this->p_Sort();
 }
-// bool binaryFile::update()
-// {
 
-// }
+bool binaryFile::update(int dep, int empNum, char newName[])
+{
+	bool exists = this->search(dep, empNum);
+    EMP* employeeToFind = NULL;
+    char temp[30];
+    fstream fp;
+    fp.open("output.txt", ios::in|ios::binary);
+    if (exists)
+    {
+        employeeToFind = this->p_Retrieve(dep, empNum);
+		if (employeeToFind == NULL)
+        {
+            fp.close();
+			return false;
+        }
+		else
+        {
+		    strncpy(temp, employeeToFind->employeeName, 30);
+		    strncpy(employeeToFind->employeeName, newName, 30);
+            //TODO write back out to file
+            cout << "Test: " << employeeToFind->employeeName << endl;
+			if (employeeToFind->employeeName == temp)
+            {
+                fp.close();
+				return false;
+            }
+			else
+            {
+                fp.close();	
+				return true;
+            }
+		
+		}
+	
+	}
+    else
+    {
+        fp.close();
+        return false;
+    }
+    
+    
+    fp.open("output.txt", ios::out|ios::binary); 
+    fp.seekp(sizeof(EMP)*p_Search(dep, empNum));
+	if(fp.is_open())
+    {
+        fp.write((char*)employeeToFind, sizeof(EMP));
+        fp.close();
+    
+	}
+    
+}
 
 void binaryFile::head(int n)
 {
@@ -194,7 +243,6 @@ EMP* binaryFile::p_Retrieve(int dep, int empNum)
 
 //still to do: 
 //create the indexes!
-//(maybe) add a sort 
 void binaryFile::p_Sort()
 {
 
@@ -213,8 +261,6 @@ void binaryFile::p_Sort()
         }
 
     }
-
-
 
     //read record from file and put in respective bin
     fstream fp;
@@ -259,11 +305,38 @@ void binaryFile::p_Sort()
 
     
 }
-// bool binaryFile::p_Update()
-// {
-
-// }
-
+/*
+bool binaryFile::p_Update(int dep, int empNum, char newName[])
+{
+	fstream fp;
+    int i;
+    int i_dep, i_empNum;
+    int counter = p_GetRecords();
+    fp.open("output.txt", ios::in|ios::binary); 
+    EMP buff;
+    EMP* employeeReturn = new EMP;
+	if(fp.is_open())
+    {    
+        for(i = 0; i < counter; i++)
+        {
+            
+            fp.read((char*)&buff, sizeof(EMP));
+            i_dep = buff.department;
+            i_empNum = buff.employeeNum;
+            
+            if (i_dep == dep && i_empNum == empNum)
+            {
+            
+                employeeReturn->department = buff.department;
+                employeeReturn->employeeNum = buff.employeeNum;
+                strncpy(employeeReturn->employeeName, buff.employeeName, 30);
+			}
+        }
+        fp.close();
+    }
+    return employeeReturn;
+}
+*/
 
 //prints out first n items
 void binaryFile::p_head(int n)

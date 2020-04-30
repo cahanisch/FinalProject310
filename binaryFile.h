@@ -47,6 +47,7 @@ class binaryFile
         void sort();
         bool update();
         void head(int);
+        bool update(int, int, char[]);
     private:
     /**************************** PRIVATE: Variables ****************************/
         int records;
@@ -63,6 +64,7 @@ class binaryFile
         string p_GetOutputString();
         void p_SetOutputString(string);
         void p_head(int);
+        void p_Update(int, int, char[]);
 };
 //*********************END CLASS binaryFile DEFINITION*********************
 
