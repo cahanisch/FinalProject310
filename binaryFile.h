@@ -58,13 +58,12 @@ class binaryFile
         void p_Insert(string);
         EMP* p_Retrieve(int, int);
         void p_Sort();
-        bool p_Update();
         void p_SetRecords(int);
         int p_GetRecords();
         string p_GetOutputString();
         void p_SetOutputString(string);
         void p_head(int);
-        void p_Update(int, int, char[]);
+        bool p_Update(int, int, string);
 };
 //*********************END CLASS binaryFile DEFINITION*********************
 

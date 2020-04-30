@@ -6,7 +6,7 @@ int main(int argc, char** argv)
 
     myFile.insert("smallOutput.txt");
     myFile.sort();
-    myFile.head(20);
+    myFile.head(10);
 
     bool checkSearch;
     checkSearch = myFile.search(0,23);
@@ -28,7 +28,6 @@ int main(int argc, char** argv)
     cout << "Department: " << checkRetrieve->department << " Employee Number: " << checkRetrieve->employeeNum << endl;
 
     myFile.head(10);
-
 
     return 0;
 }
