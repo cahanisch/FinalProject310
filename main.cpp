@@ -8,19 +8,19 @@ int main(int argc, char** argv)
     myFile.sort();
     myFile.head(10);
 
-    bool checkSearch;
+    bool checkSearch = false;
     checkSearch = myFile.search(0,23);
     if (checkSearch == true)
-        cout << "Search works" << endl;
+        cout << "Employee Found" << endl;
     else
-        cout << "Search didnt' work :( " << endl;
-
+        cout << "Employee Not Found" << endl;
 
     char name[30] = "Me!"; 
-    if(myFile.update(0, 23, name))
-    {
-        cout << "updated\n";
-    }
+    bool updateCheck = myFile.update(0,23,name);
+    if(updateCheck)
+        cout << "Employee Updated" << endl;;
+    else
+        cout << "Employee Not Updated" << endl;
 
     EMP* checkRetrieve;
     checkRetrieve = myFile.retrieve(0,23);
