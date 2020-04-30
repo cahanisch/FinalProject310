@@ -45,7 +45,7 @@ class binaryFile
         void insert(string);
         EMP* retrieve(int, int);
         void sort();
-        bool update();
+        bool update(int, int, char[]);
         void head(int);
         bool update(int, int, char[]);
     private:

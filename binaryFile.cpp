@@ -96,6 +96,7 @@ bool binaryFile::update(int dep, int empNum, char newName[])
         fp.close();
         return false;
     }
+
     
     
     fp.open("output.txt", ios::out|ios::binary); 
@@ -315,6 +316,11 @@ bool binaryFile::p_Update(int dep, int empNum, char newName[])
     fp.open("output.txt", ios::in|ios::binary); 
     EMP buff;
     EMP* employeeReturn = new EMP;
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> cc8bfcf8b9fd11b9a941a3fe1910a72120140dd2
 	if(fp.is_open())
     {    
         for(i = 0; i < counter; i++)
@@ -332,9 +338,18 @@ bool binaryFile::p_Update(int dep, int empNum, char newName[])
                 strncpy(employeeReturn->employeeName, buff.employeeName, 30);
 			}
         }
+<<<<<<< HEAD
         fp.close();
     }
     return employeeReturn;
+=======
+
+        fp.close();
+    }
+
+    return employeeReturn;
+
+>>>>>>> cc8bfcf8b9fd11b9a941a3fe1910a72120140dd2
 }
 */
 

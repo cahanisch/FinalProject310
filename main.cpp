@@ -22,5 +22,13 @@ int main(int argc, char** argv)
     cout << "Retrieved Name: " << checkRetrieve->employeeName << endl;
     cout << "Department: " << checkRetrieve->department << " Employee Number: " << checkRetrieve->employeeNum << endl;
 
+    char newName[30] = "Bob";
+    myFile.update(0, 45731, newName);
+
+    EMP* checkRetrieve2;
+    checkRetrieve2 = myFile.retrieve(0,45731);
+    cout << "Retrieved Name: " << checkRetrieve2->employeeName << endl;
+    cout << "Department: " << checkRetrieve2->department << " Employee Number: " << checkRetrieve2->employeeNum << endl;
+
     return 0;
 }
